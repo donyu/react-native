@@ -1054,6 +1054,7 @@ RCT_ENUM_CONVERTER(RCTAnimationType, (@{
 
 BOOL RCTSetProperty(id target, NSString *keyPath, SEL type, id json)
 {
+  NSLog(@"Set KeyPath %@", keyPath);
   // Split keypath
   NSArray *parts = [keyPath componentsSeparatedByString:@"."];
   NSString *key = [parts lastObject];

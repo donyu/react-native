@@ -55,6 +55,9 @@ var ListViewSimpleExample = React.createClass({
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
+          style={styles.list}
+          // contentInset={{bottom: 50}}
+          // contentContainerStyle={styles.list}
         />
       </UIExplorerPage>
     );
@@ -82,7 +85,7 @@ var ListViewSimpleExample = React.createClass({
 
   _genRows: function(pressData: {[key: number]: boolean}): Array<string> {
     var dataBlob = [];
-    for (var ii = 0; ii < 100; ii++) {
+    for (var ii = 0; ii < 7; ii++) {
       var pressedText = pressData[ii] ? ' (pressed)' : '';
       dataBlob.push('Row ' + ii + pressedText);
     }
@@ -127,6 +130,12 @@ var styles = StyleSheet.create({
   text: {
     flex: 1,
   },
+  list: {
+    paddingTop: 50,
+    paddingBottom: 133,
+    paddingLeft: 30,
+    paddingRight: 30,
+  }
 });
 
 module.exports = ListViewSimpleExample;

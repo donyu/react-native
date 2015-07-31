@@ -419,11 +419,11 @@ RCT_MARGIN_PROPERTY(Right, RIGHT)
 - (void)setPadding##prop:(CGFloat)value            \
 {                                                  \
   _paddingMetaProps[META_PROP_##metaProp] = value; \
-  _recomputePadding = YES;                         \
+  _recomputePadding = YES; NSLog(@"setter %f", value);                         \
 }                                                  \
 - (CGFloat)padding##prop                           \
 {                                                  \
-  return _paddingMetaProps[META_PROP_##metaProp];  \
+  NSLog(@"getter %f", _paddingMetaProps[META_PROP_##metaProp]);return _paddingMetaProps[META_PROP_##metaProp];  \
 }
 
 RCT_PADDING_PROPERTY(, ALL)

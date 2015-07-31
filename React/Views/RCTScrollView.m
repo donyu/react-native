@@ -67,12 +67,12 @@ RCT_NOT_IMPLEMENTED(-init)
   NSDictionary *body = @{
     @"contentOffset": @{
       @"x": @(_scrollView.contentOffset.x),
-      @"y": @(_scrollView.contentOffset.y)
+      @"y": @(_scrollView.contentOffset.y + 300)
     },
     @"contentInset": @{
       @"top": @(_scrollView.contentInset.top),
       @"left": @(_scrollView.contentInset.left),
-      @"bottom": @(_scrollView.contentInset.bottom),
+      @"bottom": @(_scrollView.contentInset.bottom - 500),
       @"right": @(_scrollView.contentInset.right)
     },
     @"contentSize": @{
@@ -81,7 +81,7 @@ RCT_NOT_IMPLEMENTED(-init)
     },
     @"layoutMeasurement": @{
       @"width": @(_scrollView.frame.size.width),
-      @"height": @(_scrollView.frame.size.height)
+      @"height": @(_scrollView.frame.size.height + 500)
     },
     @"zoomScale": @(_scrollView.zoomScale ?: 1),
   };
@@ -254,17 +254,17 @@ RCT_NOT_IMPLEMENTED(-init)
  */
 - (void)setContentOffset:(CGPoint)contentOffset
 {
-  UIView *contentView = [self contentView];
-  if (contentView && _centerContent) {
-    CGSize subviewSize = contentView.frame.size;
-    CGSize scrollViewSize = self.bounds.size;
-    if (subviewSize.width < scrollViewSize.width) {
-      contentOffset.x = -(scrollViewSize.width - subviewSize.width) / 2.0;
-    }
-    if (subviewSize.height < scrollViewSize.height) {
-      contentOffset.y = -(scrollViewSize.height - subviewSize.height) / 2.0;
-    }
-  }
+//  UIView *contentView = [self contentView];
+//  if (contentView && _centerContent) {
+//    CGSize subviewSize = contentView.frame.size;
+//    CGSize scrollViewSize = self.bounds.size;
+//    if (subviewSize.width < scrollViewSize.width) {
+//      contentOffset.x = -(scrollViewSize.width - subviewSize.width) / 2.0;
+//    }
+//    if (subviewSize.height < scrollViewSize.height) {
+//      contentOffset.y = -(scrollViewSize.height - subviewSize.height) / 2.0;
+//    }
+//  }
   [super setContentOffset:contentOffset];
 }
 
@@ -384,7 +384,8 @@ RCT_NOT_IMPLEMENTED(-init)
     _scrollView.delegate = self;
     _scrollView.delaysContentTouches = NO;
     _automaticallyAdjustContentInsets = YES;
-    _contentInset = UIEdgeInsetsZero;
+    _contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
+    
     _contentSize = CGSizeZero;
 
     _scrollEventThrottle = 0.0;
@@ -473,7 +474,6 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
 - (void)setContentInset:(UIEdgeInsets)contentInset
 {
   CGPoint contentOffset = _scrollView.contentOffset;
-
   _contentInset = contentInset;
   [RCTView autoAdjustInsetsForView:self
                     withScrollView:_scrollView
@@ -654,37 +654,37 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
 {
   CGPoint oldOffset = _scrollView.contentOffset;
   CGPoint newOffset = oldOffset;
-
-  CGSize oldContentSize = _scrollView.contentSize;
-  CGSize viewportSize = [self _calculateViewportSize];
-
-  BOOL fitsinViewportY = oldContentSize.height <= viewportSize.height && newContentSize.height <= viewportSize.height;
-  if (newContentSize.height < oldContentSize.height && !fitsinViewportY) {
-    CGFloat offsetHeight = oldOffset.y + viewportSize.height;
-    if (oldOffset.y < 0) {
-      // overscrolled on top, leave offset alone
-    } else if (offsetHeight > oldContentSize.height) {
-      // overscrolled on the bottom, preserve overscroll amount
-      newOffset.y = MAX(0, oldOffset.y - (oldContentSize.height - newContentSize.height));
-    } else if (offsetHeight > newContentSize.height) {
-      // offset falls outside of bounds, scroll back to end of list
-      newOffset.y = MAX(0, newContentSize.height - viewportSize.height);
-    }
-  }
-
-  BOOL fitsinViewportX = oldContentSize.width <= viewportSize.width && newContentSize.width <= viewportSize.width;
-  if (newContentSize.width < oldContentSize.width && !fitsinViewportX) {
-    CGFloat offsetHeight = oldOffset.x + viewportSize.width;
-    if (oldOffset.x < 0) {
-      // overscrolled at the beginning, leave offset alone
-    } else if (offsetHeight > oldContentSize.width && newContentSize.width > viewportSize.width) {
-      // overscrolled at the end, preserve overscroll amount as much as possible
-      newOffset.x = MAX(0, oldOffset.x - (oldContentSize.width - newContentSize.width));
-    } else if (offsetHeight > newContentSize.width) {
-      // offset falls outside of bounds, scroll back to end
-      newOffset.x = MAX(0, newContentSize.width - viewportSize.width);
-    }
-  }
+//
+//  CGSize oldContentSize = _scrollView.contentSize;
+//  CGSize viewportSize = [self _calculateViewportSize];
+//
+//  BOOL fitsinViewportY = oldContentSize.height <= viewportSize.height && newContentSize.height <= viewportSize.height;
+//  if (newContentSize.height < oldContentSize.height && !fitsinViewportY) {
+//    CGFloat offsetHeight = oldOffset.y + viewportSize.height;
+//    if (oldOffset.y < 0) {
+//      // overscrolled on top, leave offset alone
+//    } else if (offsetHeight > oldContentSize.height) {
+//      // overscrolled on the bottom, preserve overscroll amount
+//      newOffset.y = MAX(0, oldOffset.y - (oldContentSize.height - newContentSize.height));
+//    } else if (offsetHeight > newContentSize.height) {
+//      // offset falls outside of bounds, scroll back to end of list
+//      newOffset.y = MAX(0, newContentSize.height - viewportSize.height);
+//    }
+//  }
+//
+//  BOOL fitsinViewportX = oldContentSize.width <= viewportSize.width && newContentSize.width <= viewportSize.width;
+//  if (newContentSize.width < oldContentSize.width && !fitsinViewportX) {
+//    CGFloat offsetHeight = oldOffset.x + viewportSize.width;
+//    if (oldOffset.x < 0) {
+//      // overscrolled at the beginning, leave offset alone
+//    } else if (offsetHeight > oldContentSize.width && newContentSize.width > viewportSize.width) {
+//      // overscrolled at the end, preserve overscroll amount as much as possible
+//      newOffset.x = MAX(0, oldOffset.x - (oldContentSize.width - newContentSize.width));
+//    } else if (offsetHeight > newContentSize.width) {
+//      // offset falls outside of bounds, scroll back to end
+//      newOffset.x = MAX(0, newContentSize.width - viewportSize.width);
+//    }
+//  }
 
   // all other cases, offset doesn't change
   return newOffset;

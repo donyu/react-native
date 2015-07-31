@@ -207,7 +207,7 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:unused)
     UIEdgeInsets autoInset = [self contentInsetsForView:parentView];
     baseInset.top += autoInset.top;
     baseInset.bottom += autoInset.bottom;
-    baseInset.left += autoInset.left;
+//    baseInset.left += autoInset.left;
     baseInset.right += autoInset.right;
   }
   [scrollView setContentInset:baseInset];

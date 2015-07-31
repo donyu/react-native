@@ -110,7 +110,7 @@ typedef void (^RCTViewManagerUIBlock)(RCTUIManager *uiManager, RCTSparseArray *v
  */
 #define RCT_REMAP_VIEW_PROPERTY(name, keyPath, type)                           \
 RCT_CUSTOM_VIEW_PROPERTY(name, type, UIView) {                                 \
-  if ((json && !RCTSetProperty(view, @#keyPath, @selector(type:), json)) ||    \
+  NSLog(@"Hello"); if ((json && !RCTSetProperty(view, @#keyPath, @selector(type:), json)) ||    \
       (!json && !RCTCopyProperty(view, defaultView, @#keyPath))) {             \
     RCTLogError(@"%@ does not have setter for `%s` property", [view class], #name); \
   } \

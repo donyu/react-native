@@ -92,7 +92,7 @@ exports.examples = [
     title: 'Background Color',
     render: function() {
       return (
-        <View style={{backgroundColor: '#527FE4', padding: 5}}>
+        <View style={{backgroundColor: '#527FE4', padding: 5, paddingBottom: 300}}>
           <Text style={{fontSize: 11}}>
             Blue background
           </Text>

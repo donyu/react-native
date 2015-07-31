@@ -318,6 +318,7 @@ var ScrollView = React.createClass({
       this.props.horizontal && styles.contentContainerHorizontal,
       this.props.contentContainerStyle,
     ];
+    console.log(contentContainerStyle);
     if (__DEV__ && this.props.style) {
       var style = flattenStyle(this.props.style);
       var childLayoutProps = ['alignItems', 'justifyContent']
@@ -392,6 +393,7 @@ var ScrollView = React.createClass({
       'ScrollViewClass must not be undefined'
     );
 
+    console.log(props);
     return (
       <ScrollViewClass {...props} ref={SCROLLVIEW}>
         {contentContainer}
